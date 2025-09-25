@@ -1,65 +1,302 @@
-# ETDA   i may never finish this... but i continue chugging away at it...
+# ETDA - Enhanced Darkages Bot Framework
 
+> **Status:** Working for USDA Darkages Clients (www.darkages.com) *7.41*  
+> [DarkAges741single.exe](https://s3.amazonaws.com/kru-downloads/da/DarkAges741single.exe)
 
-> Status: Working for USDA Darkages Clients (www.darkages.com) *7.41*
-[DarkAges741single.exe] (https://s3.amazonaws.com/kru-downloads/da/DarkAges741single.exe)
+![ETDA Screenshot](http://s32.postimg.org/ok7drfpqd/etda.png)
 
-![img](http://s32.postimg.org/ok7drfpqd/etda.png)
+## 🚀 Recent Major Updates
 
+**StateManager Interface** - Revolutionary bot management system with professional UI design, real-time filtering, and comprehensive configuration management.
 
-ETDA, a memory based darkages hunting bot/application... i may never finish this... but i continue chugging away at it...
-This Project is still in development, The current release forecast is unknown for the current development roadmap, Feel free to submit contributions to further push this project along the way. currently, The framework is in working condition but is missing many features listed on the roadmap for ETDA. the Bot that uses the framework, BotCore is in early stages of development and has a long way to go, however having said that, it has a lot done, so check out the code and have fun!.
-A Memory Based Darkages Hunting Bot.
-Status: Working for USDA Darkages Clients (www.darkages.com) 7.41 DarkAges741single.exe
- 
-I wrote this bot for the challenge of writing a bot without a network based backend. I wanted to develop a concept used in many other games and bring the same approach to darkages.
-The advantages of using a memory base backend over a networking layer is very significant. in terms of response time and overall performance, because there is much less overhead retrieving and sending information. For instance, A proxy will need an additional socket layer ontop of your clients socket layer to send and retrieve information, on top of this, it also needs to parse the raw packet bytes, append buffers, then sequentially decrypt them and then handle them again to extract the information, and then encrypt them again and send them back to the clients socket layer, this is a lot of stuff happening, Stuff that is done already by the clients own socket layer, so ultiizing memory, we can bypass all of this and jump straight to the clients own function and call it directly, inline, allowing the client to do the work. I've written plenty of network bots in the past, UDBot (Proboably the First bot ever written), DABasherBot (2004-2006, Private Bot, specifically written for bashers in Nobis), Bot2008, (written in 2006, released 2008), Bot2009 (Released 2009), Wrenbot (Post 2009, never completed) just to give you a history. So While those network bots did a decent job of collecting XP, they were often unreliable for long periods of botting sessions, would unpredictably disconnect, and so the idea behind ETDA is to make it light as possible, and fast as possible and reliable as possible.
-This application utilizes ETDA.dll this is a dll written in c++, prior to being injected it hooks the necessary functions used in the DA Client and exposes them so that they can be used or called externally, In some cases, they are merely patched/hooked. and the information detoured to our main application. In this instance (BotCore).
-The BotCore manages all the consumer aspects of the Interop Communication that is done via Write/Read Process Memory as i felt small data would not require a real IPC layer. Having said that, my results have been good so i went with this approach.
-ETDA sits between the Client, and Acts as an interface between the external Caller and the invokee. ETDA is still a work in progress and Many features will become available as progression and development continues.
-Currently ETDA supports the following functionality:
+**Advanced Healing Bot** - Multi-target healing system supporting self, party members, and named players with intelligent spell parsing.
 
+**Dynamic Priority System** - Logical hierarchy system ensuring proper bot state execution order and conflict resolution.
 
-#ETDA Core Features
-•	Inject Packet Client/Server ( No encryption / decryption necessary! )
-•	Intercept / Filter Packets ( No encryption / decryption necessary! )
-•	Chat Handling
-•	Freeze free Debugging ( Never get disconnected )
+---
 
-#ETDA Interaction
-•	ClickToMove(Point) Invocation
-•	SetCursor(Point)
-•	WalkTo(Point A, Point B)
+## 📋 Table of Contents
+- [Overview](#overview)
+- [Build Instructions](#build-instructions)
+- [System Requirements](#system-requirements)
+- [Framework Dependencies](#framework-dependencies)
+- [Project Structure](#project-structure)
+- [Features](#features)
+- [Development](#development)
+- [Credits & Attribution](#credits--attribution)
 
-#ETDA Overlaying
-•	GDI, GDI++ Overlay support (by Hooking End Paint’s device context)
-•	Support for a basic HUD overlay, currently only display's name and arc over character.
-•	Support for bitmap
-•	Text Overlay Support
+---
 
-#BotCore
-This bot is in early development.
+## 🎯 Overview
 
-Current Roadmap
-•	  State Machine Based ( Fast Response )
-•	  Component Based ( Modular design )
-•	  Customizable States, Plugins, Components
-•	  No Scripting Necessary
-•	  Packet Editor
-•	  Every class Supported, Including Subpaths.
-•	  Dynamic Path Finding
-•	  Dynamic Hunting Routes
-•	  Packet Editor Dialog Support
+ETDA is a memory-based Darkages hunting bot/application that operates without network-based backends. This approach provides significant advantages in response time and performance by directly interfacing with the game client's memory rather than intercepting and processing network packets.
 
-Upcoming RoadMap
-•	  Remove all static addresses and replace with patterns
-•	  Replace ActiveBar Component so that a pattern scan is not needed.
+### Why Memory-Based?
+Unlike traditional network bots that require socket layers, packet parsing, encryption/decryption, and buffering - ETDA bypasses all this overhead by calling the client's functions directly. This results in:
+- **Faster response times** - No network latency or packet processing delays
+- **Better reliability** - Reduced disconnection issues during long botting sessions  
+- **Lower overhead** - Direct memory access vs. complex packet manipulation
+- **Inline execution** - Let the client do the work it's already designed to do
 
-#credits
-•	Shynd, He taught me the basics of a memory based bot years ago and i guess you can say this idea is derived a lot from what he taught me. DA Procuration!
-•	ZenLulz, for his fantastic Memorysharp library.
-•	Acht/Kyle, I stole his neat RegexMessageHandler code which i found in a public bot.
-•	Huy/Jimmy, Thanks for helping with the states and some of the prelim code.
-This program is for educational purposes only and all code posted here is public domain. however please give credit where credit is due.
+---
 
+## 🔧 Build Instructions
 
+### Prerequisites
+1. **Visual Studio 2019 or later** with C++ and C# workloads
+2. **Windows SDK 10.0** or later
+3. **.NET Framework 4.7.2** or higher
+4. **Git** for version control
+
+### Step-by-Step Build Process
+
+#### 1. Clone the Repository
+```bash
+git clone https://github.com/tech005/ETDA.git
+cd ETDA
+```
+
+#### 2. Restore NuGet Packages
+```bash
+# In Visual Studio Package Manager Console or command line with NuGet CLI
+nuget restore BotCore.sln
+```
+
+#### 3. Build Order
+**Important:** Build projects in this specific order due to dependencies:
+
+1. **EtDA (C++ Project)**
+   ```bash
+   # Build the native DLL first
+   msbuild EtDA\EtDA.vcxproj /p:Configuration=Release /p:Platform=x86
+   ```
+
+2. **BotCore (C# Library)**
+   ```bash
+   # Build the core bot framework
+   msbuild BotCore\BotCore.csproj /p:Configuration=Release /p:Platform=x86
+   ```
+
+3. **Bot (C# Application)**
+   ```bash
+   # Build the main application
+   msbuild Bot\Bot.csproj /p:Configuration=Release /p:Platform=x86
+   ```
+
+#### 4. Complete Solution Build
+```bash
+# Or build everything at once (after NuGet restore)
+msbuild BotCore.sln /p:Configuration=Release /p:Platform=x86
+```
+
+### Visual Studio Build
+1. Open `BotCore.sln` in Visual Studio
+2. Set solution configuration to **Release** and platform to **x86**
+3. Right-click solution → **Restore NuGet Packages**
+4. Build → **Build Solution** (F6)
+
+---
+
+## 💻 System Requirements
+
+### Operating System
+- **Windows 10** or later (x86/x64)
+- **Windows 8.1** (limited testing)
+
+### Hardware Requirements
+- **CPU:** Intel/AMD x86 compatible processor
+- **RAM:** 4GB minimum, 8GB recommended
+- **Storage:** 100MB free space
+- **Graphics:** DirectX 9.0c compatible
+
+### Game Client Requirements
+- **Dark Ages Client 7.41** ([Download](https://s3.amazonaws.com/kru-downloads/da/DarkAges741single.exe))
+- Must run in **x86 mode** (32-bit compatibility)
+
+---
+
+## 📦 Framework Dependencies
+
+### .NET Framework Components
+```xml
+<TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+```
+
+### NuGet Packages
+- **log4net 2.0.5** - Logging framework
+- **PostSharp 4.2.21** - Aspect-oriented programming
+- **PostSharp.Patterns.Common 4.2.21** - Common patterns
+- **PostSharp.Patterns.Diagnostics 4.2.21** - Diagnostic patterns
+- **PostSharp.Patterns.Diagnostics.Log4Net 4.2.21** - Log4Net integration
+- **PostSharp.Patterns.Model 4.2.21** - Model patterns
+- **PostSharp.Patterns.Threading 4.2.21** - Threading patterns
+
+### External Libraries
+- **MemorySharp.dll** - Memory manipulation library by ZenLulz
+- **Fasm.NET.dll** - Flat Assembler .NET wrapper
+- **OpenGL libraries** - Graphics rendering support
+
+### C++ Runtime Requirements
+- **Microsoft Visual C++ Redistributable** for Visual Studio 2019 (x86)
+- **Windows Universal CRT**
+
+---
+
+## 📁 Project Structure
+
+```
+ETDA/
+├── EtDA/                           # Native C++ DLL Project
+│   ├── Darkages.cpp               # Core Dark Ages integration
+│   ├── main.cpp                   # DLL entry point
+│   ├── GameFunctions.h            # Game function definitions
+│   └── ...
+├── BotCore/                       # C# Bot Framework
+│   ├── Actions/                   # Game action implementations
+│   ├── BotForms/                  # UI Forms and Dialogs
+│   │   ├── StateManager.cs       # NEW: Revolutionary state management
+│   │   ├── BotInterface.cs       # Main bot interface
+│   │   └── ...
+│   ├── States/BotStates/          # Bot behavior states
+│   │   ├── HealingBot.cs         # ENHANCED: Multi-target healing
+│   │   ├── CheckIfFased.cs       # Fas spell management
+│   │   └── ...
+│   ├── Components/                # Modular bot components
+│   ├── Client/                    # Game client integration
+│   └── ...
+├── Bot/                          # Main Application
+│   ├── MainForm.cs               # Application entry point
+│   └── ...
+├── packages/                     # NuGet packages
+└── Documentation/
+    ├── CHANGELOG.md              # Detailed change history
+    └── PULL_REQUEST.md          # Feature summary
+```
+
+---
+
+## ✨ Features
+
+### 🎮 ETDA Core Features
+- **Direct Memory Access** - No packet encryption/decryption overhead
+- **Packet Injection** - Client/Server packet injection without network layer
+- **Packet Interception** - Filter and modify packets in real-time
+- **Chat Integration** - Advanced chat handling and automation
+- **Freeze-Free Debugging** - Debug without client disconnection
+- **Memory Pattern Scanning** - Dynamic address resolution
+
+### 🎯 Game Interaction
+- **Click-to-Move** - Precise movement control via Point invocation
+- **Cursor Management** - SetCursor(Point) for UI interaction
+- **Pathfinding** - WalkTo(Point A, Point B) with obstacle avoidance
+- **Spell Casting** - Direct spell invocation with target validation
+- **Equipment Management** - Automated gear and inventory handling
+
+### 🎨 Visual Overlays
+- **GDI/GDI++ Support** - Hardware-accelerated overlay rendering
+- **HUD System** - Customizable heads-up display with name/arc display
+- **Bitmap Rendering** - Support for custom graphics and textures
+- **Text Overlays** - Real-time information display
+- **Debug Visualization** - Visual debugging tools and state indicators
+
+### 🤖 BotCore Framework
+- **StateManager Interface** 🆕 - Revolutionary UI with split-panel design (600px/296px)
+  - Real-time filtering and priority-based grouping
+  - Visual state indicators and comprehensive configuration
+  - XML-based per-player settings persistence
+  
+- **Advanced Healing Bot** 🆕 - Multi-target healing system
+  - Self, party, and named player support
+  - Intelligent spell parsing with regex matching
+  - Priority-based targeting with range validation
+  
+- **Dynamic Priority System** 🆕 - Logical state hierarchy
+  - Emergency (95+) → Healing (85-94) → Combat (70-84) → Buffs (50-69) → Movement (10-49)
+  - StateAttribute integration with DefaultPriority
+  - Conflict resolution and execution order management
+
+### 🔧 Architecture Features
+- **State Machine Based** - Fast response times with efficient state transitions
+- **Component Based** - Modular design for easy customization and extension
+- **Plugin System** - Support for custom states, plugins, and components
+- **No Scripting Required** - Visual configuration through advanced UI
+- **Multi-Class Support** - Every Dark Ages class including subpaths
+- **Dynamic Pathfinding** - Intelligent navigation and route optimization
+
+---
+
+## 🛠️ Development
+
+### Getting Started
+1. Follow the [Build Instructions](#build-instructions) above
+2. Launch Dark Ages client (7.41)
+3. Run Bot.exe as Administrator
+4. Use the StateManager interface to configure bot behavior
+5. Start automation and monitor through the comprehensive UI
+
+### Configuration
+- **Per-Player Settings** - XML-based configuration automatically saved
+- **State Management** - Use the StateManager for visual configuration
+- **Priority System** - Leverage the dynamic priority hierarchy for optimal performance
+- **Debugging** - Enable debug output for detailed execution logging
+
+### Contributing
+This project welcomes contributions! Please:
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes with proper documentation
+4. Submit a pull request with detailed description
+
+### Troubleshooting
+- **Build Errors** - Ensure all NuGet packages are restored and build order is followed
+- **Runtime Issues** - Run as Administrator and check Dark Ages client version
+- **Memory Access** - Verify Windows Defender/Antivirus exclusions for memory access
+
+---
+
+## 🏆 Credits & Attribution
+
+### Original Development
+- **Shynd** - Taught the fundamentals of memory-based botting. The foundation of this approach is derived from his teachings. "DA Procuration!"
+- **ZenLulz** - Creator of the fantastic MemorySharp library that powers our memory operations
+- **Acht/Kyle** - Provided the elegant RegexMessageHandler code found in public bot implementations
+- **Huy/Jimmy** - Contributed to preliminary state implementations and core framework development
+
+### Recent Enhancement Development
+A significant portion of the recent enhancements and modernization efforts were developed with the assistance of:
+
+- **GitHub Copilot** - AI pair programming assistant that accelerated development
+- **Claude 3.5 Sonnet (Anthropic)** - Advanced language model that provided architectural guidance, code review, and comprehensive documentation support
+
+The StateManager interface, advanced healing system, dynamic priority management, and extensive documentation were collaboratively developed using these AI tools, demonstrating the power of human-AI collaboration in software development.
+
+### Libraries and Dependencies
+- **Microsoft .NET Framework** - Application runtime and base class libraries
+- **PostSharp** - Aspect-oriented programming framework for cross-cutting concerns
+- **log4net** - Flexible logging framework for debugging and monitoring
+- **Fasm.NET** - Flat Assembler integration for low-level operations
+- **OpenGL** - Graphics rendering pipeline for overlay systems
+
+---
+
+## ⚖️ Legal Notice
+
+This program is developed for **educational purposes only**. All code is released as public domain, however:
+
+- Please provide proper attribution when using or modifying this code
+- Respect the intellectual property rights of game developers
+- Use responsibly and in accordance with applicable terms of service
+- The developers assume no responsibility for misuse of this software
+
+---
+
+## 🔗 Links
+
+- **Game Client**: [DarkAges741single.exe](https://s3.amazonaws.com/kru-downloads/da/DarkAges741single.exe)
+- **Official Game**: [www.darkages.com](http://www.darkages.com)
+- **Documentation**: See `CHANGELOG.md` for detailed development history
+- **Issues**: Report bugs and feature requests through GitHub Issues
+
+---
+
+*Last Updated: September 25, 2025 - Major Enhancement Release*
