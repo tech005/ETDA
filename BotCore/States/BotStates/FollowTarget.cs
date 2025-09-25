@@ -41,7 +41,7 @@ namespace BotCore.States
         }
     }
 
-    [State(Author: "Dean", Desc: "Will follow a target at a distance specified.")]
+    [StateAttribute(Author: "Dean", Desc: "Will follow a target at a distance specified.", DefaultPriority: 30)]
     public class FollowTarget : GameState
     {
         [Editor(typeof(FollowCollectionEditor),
@@ -123,7 +123,7 @@ namespace BotCore.States
             }
         }
 
-        public override int Priority { get; set; }
+        public override int Priority { get; set; } = 30;
 
         public Random rnd = new Random();
 

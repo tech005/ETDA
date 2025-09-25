@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace BotCore.States
 {
-    [StateAttribute(Author: "Dean", Desc: "Will ard cradh if monster is within the radius of 9")]
+    [StateAttribute(Author: "Dean", Desc: "Will ard cradh if monster is within the radius of 9", DefaultPriority: 60)]
     public class CurseMonsters : GameState
     {
         public List<MapObject> Targets = new List<MapObject>();
@@ -73,7 +73,7 @@ namespace BotCore.States
             }
         }
 
-        public override int Priority { get; set; }
+        public override int Priority { get; set; } = 60;
 
         public override void Run(TimeSpan Elapsed)
         {

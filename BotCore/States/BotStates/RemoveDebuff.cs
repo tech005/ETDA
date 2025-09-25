@@ -41,7 +41,7 @@ namespace BotCore.States
         }
     }
 
-    [StateAttribute(Author: "Huy", Desc: "Will remove debuffs")]
+    [StateAttribute(Author: "Huy", Desc: "Will remove debuffs", DefaultPriority: 65)]
     public class RemoveDebuff : GameState
     {
         [Editor(typeof(DebuffCollectionEditor),
@@ -112,7 +112,7 @@ namespace BotCore.States
             }
         }
 
-        public override int Priority { get; set; }
+        public override int Priority { get; set; } = 65;
 
         public override void Run(TimeSpan Elapsed)
         {

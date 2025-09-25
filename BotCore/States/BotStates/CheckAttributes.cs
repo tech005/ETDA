@@ -4,7 +4,7 @@ using System;
 
 namespace BotCore.States
 {
-    [StateAttribute(Author: "Dean", Desc: "This was created to heal.")]
+    [StateAttribute(Author: "Dean", Desc: "This was created to heal.", DefaultPriority: 89)]
     [StateMetaInfo(Version: "1.0", DateUpdated: "10/04/2016")]
     public class CheckAttributes : GameState
     {
@@ -42,7 +42,7 @@ namespace BotCore.States
             }
         }
 
-        public override int Priority { get; set; }
+        public override int Priority { get; set; } = 89;
 
         public override void Run(TimeSpan Elapsed)
         {

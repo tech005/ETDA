@@ -18,11 +18,13 @@ namespace BotCore.States.BotStates
     {
         public string Desc { get; set; }
         public string Author { get; set; }
+        public int DefaultPriority { get; set; }
 
-        public StateAttribute(string Author, string Desc)
+        public StateAttribute(string Author, string Desc, int DefaultPriority = 50)
         {
             this.Author = Author;
             this.Desc = Desc;
+            this.DefaultPriority = DefaultPriority;
         }
     }
 }

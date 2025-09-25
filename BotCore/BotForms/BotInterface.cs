@@ -16,6 +16,7 @@ namespace BotCore
     {
         public Client client { get; set; }
         public MiniInterace MiniWindow { get; set; }
+        private StateManager stateManager { get; set; }
 
         public BotInterface(Client client)
         {
@@ -24,6 +25,10 @@ namespace BotCore
             MiniWindow = new MiniInterace(client);
             MiniWindow.MdiParent = Collections.ParentForm;
             MiniWindow.Dock = DockStyle.Bottom;
+
+            // Initialize debug logger
+            Types.DebugLogger.Initialize(this);
+            Types.DebugLogger.LogInfo("Bot Interface initialized");
 
             Task.Run(() => { UpdateClient(); });
             VisibleChanged += BotInterface_VisibleChanged;
@@ -99,6 +104,8 @@ namespace BotCore
             comboBox1.DataSource = client.StateMachine.States.OrderBy(i => i.Priority).Select(i => i.GetType().Name).ToList();
             button4.Enabled = false;
 
+            // Initialize StateManager
+            InitializeStateManager();
 
             //example target condition for sprite 467 (noam plain white bird)
             Collections.TargetConditions[467] = new TargetCondition()
@@ -115,6 +122,12 @@ namespace BotCore
         void BotInterface_Invalidated(object sender, InvalidateEventArgs e)
         {
             SetStateNodes();
+            
+            // Try to initialize StateManager if it wasn't ready before
+            if (stateManager != null)
+            {
+                stateManager.TryInitializeIfReady();
+            }
         }
 
         private void SetStateNodes()
@@ -171,6 +184,31 @@ namespace BotCore
             }
 
             SetStateNodes();
+        }
+
+        private void InitializeStateManager()
+        {
+            try
+            {
+                stateManager = new StateManager();
+                stateManager.Dock = DockStyle.Fill;
+                tabPageStateManager.Controls.Add(stateManager);
+                
+                // Initialize after the form is fully loaded
+                if (client != null && client.StateMachine != null && client.StateMachine.States != null)
+                {
+                    stateManager.Initialize(client, this);
+                }
+                else
+                {
+                    DebugLogger.Log("StateManager initialization deferred - client not fully ready");
+                }
+            }
+            catch (Exception ex)
+            {
+                DebugLogger.Log($"Error initializing StateManager: {ex.Message}");
+                DebugLogger.Log($"StateManager stack trace: {ex.StackTrace}");
+            }
         }
 
 
@@ -394,6 +432,103 @@ namespace BotCore
 
             }).Start();
 
+        }
+
+        private void buttonDebugClear_Click(object sender, EventArgs e)
+        {
+            if (richTextBoxDebug.InvokeRequired)
+            {
+                richTextBoxDebug.Invoke(new System.Action(() => richTextBoxDebug.Clear()));
+            }
+            else
+            {
+                richTextBoxDebug.Clear();
+            }
+        }
+
+        private void buttonDebugSave_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                using (SaveFileDialog saveDialog = new SaveFileDialog())
+                {
+                    saveDialog.Filter = "Text files (*.txt)|*.txt|Log files (*.log)|*.log|All files (*.*)|*.*";
+                    saveDialog.DefaultExt = "txt";
+                    saveDialog.FileName = $"DebugLog_{DateTime.Now:yyyy-MM-dd_HH-mm-ss}.txt";
+
+                    if (saveDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        System.IO.File.WriteAllText(saveDialog.FileName, richTextBoxDebug.Text);
+                        MessageBox.Show($"Debug log saved to: {saveDialog.FileName}", "Save Complete", 
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error saving debug log: {ex.Message}", "Save Error", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void buttonDebugCopy_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (!string.IsNullOrEmpty(richTextBoxDebug.Text))
+                {
+                    Clipboard.SetText(richTextBoxDebug.Text);
+                    MessageBox.Show("Debug log copied to clipboard!", "Copy Complete", 
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Debug log is empty!", "Copy Warning", 
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error copying to clipboard: {ex.Message}", "Copy Error", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        public void AppendDebugLog(string message)
+        {
+            string timestamp = DateTime.Now.ToString("HH:mm:ss.fff");
+            string logEntry = $"[{timestamp}] {message}\r\n";
+
+            if (richTextBoxDebug.InvokeRequired)
+            {
+                richTextBoxDebug.Invoke(new System.Action(() =>
+                {
+                    richTextBoxDebug.AppendText(logEntry);
+                    richTextBoxDebug.ScrollToCaret();
+                }));
+            }
+            else
+            {
+                richTextBoxDebug.AppendText(logEntry);
+                richTextBoxDebug.ScrollToCaret();
+            }
+        }
+
+        public void SwitchToBottingStatesTab()
+        {
+            try
+            {
+                // Switch to the Botting States tab (tabPage1)
+                if (tabControl1 != null && tabPage1 != null)
+                {
+                    tabControl1.SelectedTab = tabPage1;
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log error but don't crash
+                System.Diagnostics.Debug.WriteLine($"Error switching to Botting States tab: {ex.Message}");
+            }
         }
     }
 }

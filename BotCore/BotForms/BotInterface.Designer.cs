@@ -36,6 +36,12 @@
             this.checkBox6 = new System.Windows.Forms.CheckBox();
             this.checkBox5 = new System.Windows.Forms.CheckBox();
             this.checkBox4 = new System.Windows.Forms.CheckBox();
+            this.tabPageStateManager = new System.Windows.Forms.TabPage();
+            this.tabPageDebug = new System.Windows.Forms.TabPage();
+            this.buttonDebugCopy = new System.Windows.Forms.Button();
+            this.buttonDebugSave = new System.Windows.Forms.Button();
+            this.buttonDebugClear = new System.Windows.Forms.Button();
+            this.richTextBoxDebug = new System.Windows.Forms.RichTextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.button2 = new System.Windows.Forms.Button();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
@@ -57,11 +63,13 @@
             this.button5 = new System.Windows.Forms.Button();
             this.tabPage4.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.tabPageDebug.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage5.SuspendLayout();
+            this.tabPageStateManager.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabPage4
@@ -143,6 +151,64 @@
             this.checkBox4.Text = "Hide Coins";
             this.checkBox4.UseVisualStyleBackColor = true;
             this.checkBox4.CheckedChanged += new System.EventHandler(this.checkBox4_CheckedChanged);
+            // 
+            // tabPageDebug
+            // 
+            this.tabPageDebug.Controls.Add(this.buttonDebugCopy);
+            this.tabPageDebug.Controls.Add(this.buttonDebugSave);
+            this.tabPageDebug.Controls.Add(this.buttonDebugClear);
+            this.tabPageDebug.Controls.Add(this.richTextBoxDebug);
+            this.tabPageDebug.Location = new System.Drawing.Point(4, 25);
+            this.tabPageDebug.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.tabPageDebug.Name = "tabPageDebug";
+            this.tabPageDebug.Size = new System.Drawing.Size(716, 431);
+            this.tabPageDebug.TabIndex = 4;
+            this.tabPageDebug.Text = "Debug Log";
+            this.tabPageDebug.UseVisualStyleBackColor = true;
+            // 
+            // buttonDebugCopy
+            // 
+            this.buttonDebugCopy.Location = new System.Drawing.Point(182, 6);
+            this.buttonDebugCopy.Name = "buttonDebugCopy";
+            this.buttonDebugCopy.Size = new System.Drawing.Size(75, 23);
+            this.buttonDebugCopy.TabIndex = 3;
+            this.buttonDebugCopy.Text = "Copy";
+            this.buttonDebugCopy.UseVisualStyleBackColor = true;
+            this.buttonDebugCopy.Click += new System.EventHandler(this.buttonDebugCopy_Click);
+            // 
+            // buttonDebugSave
+            // 
+            this.buttonDebugSave.Location = new System.Drawing.Point(94, 6);
+            this.buttonDebugSave.Name = "buttonDebugSave";
+            this.buttonDebugSave.Size = new System.Drawing.Size(75, 23);
+            this.buttonDebugSave.TabIndex = 2;
+            this.buttonDebugSave.Text = "Save";
+            this.buttonDebugSave.UseVisualStyleBackColor = true;
+            this.buttonDebugSave.Click += new System.EventHandler(this.buttonDebugSave_Click);
+            // 
+            // buttonDebugClear
+            // 
+            this.buttonDebugClear.Location = new System.Drawing.Point(6, 6);
+            this.buttonDebugClear.Name = "buttonDebugClear";
+            this.buttonDebugClear.Size = new System.Drawing.Size(75, 23);
+            this.buttonDebugClear.TabIndex = 1;
+            this.buttonDebugClear.Text = "Clear";
+            this.buttonDebugClear.UseVisualStyleBackColor = true;
+            this.buttonDebugClear.Click += new System.EventHandler(this.buttonDebugClear_Click);
+            // 
+            // richTextBoxDebug
+            // 
+            this.richTextBoxDebug.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.richTextBoxDebug.BackColor = System.Drawing.Color.Black;
+            this.richTextBoxDebug.ForeColor = System.Drawing.Color.Lime;
+            this.richTextBoxDebug.Location = new System.Drawing.Point(6, 35);
+            this.richTextBoxDebug.Name = "richTextBoxDebug";
+            this.richTextBoxDebug.ReadOnly = true;
+            this.richTextBoxDebug.Size = new System.Drawing.Size(704, 390);
+            this.richTextBoxDebug.TabIndex = 0;
+            this.richTextBoxDebug.Text = "";
             // 
             // tabPage2
             // 
@@ -363,9 +429,11 @@
             // 
             // tabControl1
             // 
+            this.tabControl1.Controls.Add(this.tabPageStateManager);
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage5);
             this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPageDebug);
             this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
@@ -386,6 +454,16 @@
             this.tabPage5.Text = "Components";
             this.tabPage5.UseVisualStyleBackColor = true;
             // 
+            // tabPageStateManager
+            // 
+            this.tabPageStateManager.Location = new System.Drawing.Point(4, 25);
+            this.tabPageStateManager.Name = "tabPageStateManager";
+            this.tabPageStateManager.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageStateManager.Size = new System.Drawing.Size(942, 621);
+            this.tabPageStateManager.TabIndex = 5;
+            this.tabPageStateManager.Text = "State Manager";
+            this.tabPageStateManager.UseVisualStyleBackColor = true;
+            // 
             // button5
             // 
             this.button5.Location = new System.Drawing.Point(55, 47);
@@ -400,13 +478,13 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(724, 460);
+            this.ClientSize = new System.Drawing.Size(950, 650);
             this.Controls.Add(this.tabControl1);
             this.Font = new System.Drawing.Font("Arial", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Sizable;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.MaximizeBox = false;
+            this.MaximizeBox = true;
             this.Name = "BotInterface";
             this.Text = "BotInterface";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.BotInterface_FormClosing);
@@ -414,12 +492,14 @@
             this.tabPage4.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.tabPageDebug.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             this.tabPage1.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
             this.tabPage5.ResumeLayout(false);
+            this.tabPageStateManager.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -433,6 +513,7 @@
         private System.Windows.Forms.CheckBox checkBox6;
         private System.Windows.Forms.CheckBox checkBox5;
         private System.Windows.Forms.CheckBox checkBox4;
+        private System.Windows.Forms.TabPage tabPageStateManager;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.ComboBox comboBox2;
@@ -452,5 +533,10 @@
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage5;
         private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.TabPage tabPageDebug;
+        private System.Windows.Forms.RichTextBox richTextBoxDebug;
+        private System.Windows.Forms.Button buttonDebugClear;
+        private System.Windows.Forms.Button buttonDebugSave;
+        private System.Windows.Forms.Button buttonDebugCopy;
     }
 }

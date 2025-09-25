@@ -4,7 +4,7 @@ using System;
 namespace BotCore.States
 {
     [Serializable]
-    [StateAttribute(Author: "Jimmy", Desc: "Will try to keep beag cradh on")]
+    [StateAttribute(Author: "Jimmy", Desc: "Will try to keep beag cradh on", DefaultPriority: 93)]
     public class CheckIfBC : GameState
     {
         public override bool NeedToRun
@@ -35,7 +35,7 @@ namespace BotCore.States
             }
         }
 
-        public override int Priority { get; set; }
+        public override int Priority { get; set; } = 93;
 
         public override void Run(TimeSpan Elapsed)
         {

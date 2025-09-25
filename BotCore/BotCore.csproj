@@ -100,13 +100,24 @@
     <Compile Include="BotForms\statetoggle.Designer.cs">
       <DependentUpon>statetoggle.cs</DependentUpon>
     </Compile>
+    <Compile Include="BotForms\StateManager.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BotForms\StateManager.Designer.cs">
+      <DependentUpon>StateManager.cs</DependentUpon>
+    </Compile>
     <Compile Include="Client\SyncOperation.cs" />
     <Compile Include="Components\Activebar.cs" />
     <Compile Include="Components\StressTest.cs" />
     <Compile Include="Interop\MemoryPatternSearcher.cs" />
     <Compile Include="Shared\Memory\DAPointers.cs" />
     <Compile Include="States\BotStates\AttackMonsters.cs" />
+    <Compile Include="States\BotStates\CheckIfAited.cs" />
+    <Compile Include="States\BotStates\CheckIfFased.cs" />
     <Compile Include="States\BotStates\FollowTarget.cs" />
+    <Compile Include="States\BotStates\HealingBot.cs" />
+    <Compile Include="States\BotStates\MeleeCombat.cs" />
+    <Compile Include="States\BotStates\MapWalker.cs" />
     <Compile Include="Shared\Client.cs" />
     <Compile Include="Shared\Collections.cs" />
     <Compile Include="Components\GameEquipment.cs" />
@@ -123,6 +134,7 @@
     <Compile Include="States\BotStates\CheckIfBC.cs" />
     <Compile Include="States\BotStates\RemoveDebuff.cs" />
     <Compile Include="Types\CurseInfo.cs" />
+    <Compile Include="Types\DebugLogger.cs" />
     <Compile Include="Types\FasInfo.cs" />
     <Compile Include="Types\GameUtilities.cs" />
     <Compile Include="Types\KeyboardHook.cs" />
@@ -135,6 +147,7 @@
     </Compile>
     <Compile Include="States\BotStates\CheckAttributes.cs" />
     <Compile Include="States\BotStates\CurseMonsters.cs" />
+    <Compile Include="States\BotStates\FasMonsters.cs" />
     <Compile Include="States\BotStates\StateAttribute.cs" />
     <Compile Include="States\GameState.cs" />
     <Compile Include="States\GameStateEngine.cs" />
@@ -6611,6 +6624,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="BotForms\statetoggle.resx">
       <DependentUpon>statetoggle.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BotForms\StateManager.resx">
+      <DependentUpon>StateManager.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
